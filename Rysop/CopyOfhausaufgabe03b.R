@@ -110,13 +110,19 @@ print(my.data**3)
 
 # Nehmen Sie das erste Element aus dem obigen Ergebnis, um den Modalwert zu
 # bekommen:
-# modus <- code_hier
+# modus <- tabelle.sorted[1]
+# print (modus)
 
 # Verständisfrage: gibt es immer nur *einen* Modalwert? 
 # Wenn nicht, ist der Code oben korrekt? Warum?
-# Schreiben Sie Ihre Antwort als Comment hier.
+# Der Modalwert bezeichnet denjenigen Wert, der am häufigsten vorkommt.
+# Dabei kann es vorkommen, dass es in einer Tabelle zwei Werte gibt, die gleich häufig vorkommen. 
+# In diesem Fall gibt es dann keinen Modalwert.
+# Der oben verwendete Code ist deswegen nicht korrekt, da er den Befehl gibt, den ersten Wert der sortierten 
+# Tabelle als Modalwert auszuwählen. Gäbe es allerdings zwei gleichhohe Werte, so würde der Code trotzdem den 
+# zuerst genannten Wert als Modalwert auswählen, was in dem Falle falsch wäre.
 
-# antwort_hier
+
 
 # Als Abscheid ein Beispiel mit der Darstellung Frequenzdaten mit Säulendiagramm
 # bzw. Histogramm
