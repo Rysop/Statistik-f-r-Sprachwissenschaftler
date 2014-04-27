@@ -27,7 +27,7 @@ Der Index bzw. das Staging Area ist ein vorläufiger Commit, an dem Sie gerade a
 Es gibt in RStudio und im Internet **viel** zu Markdown. RStudio nutzt einen besonderen Dialekt, damit auch R-Code-Blöcke eingebaut werden können, aber der Großteil der "Syntax" ändert sich nicht. Fügen Sie hier eine ungeordnete Liste hier mit zumindest zwei Erwartungen von diesem Kurs ein. Testen Sie, dass Sie das korrekt formatiert haben, indem Sie auf "Knit HTML" klicken und schauen, dass die Liste mit Punkten erscheint.  
 
 list_hier
-#Persönliche Ziele für den Kurs
+# Persönliche Ziele für den Kurs
 - lernen Forschungsergebnisse statistisch abzusichern
 - lernen statistische Operationen zu machen
 - statistische Grundlagen kennenlernen
