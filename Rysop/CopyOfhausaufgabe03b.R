@@ -1,6 +1,6 @@
 # Hausaufgabe 03
-# Phillip Alday <phillip.alday@staff.uni-marburg.de>
-# 2014-04-23
+# Anna Rysop <rysop@students.uni-marburg.de>
+# 2014-04-27
 # Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
 
 # Sie sollten die Datei auch in Ihren Ordner kopieren und einen Commit machen, 
@@ -15,6 +15,7 @@
 
 my.data <- c(1,9,7,3)
 print(mean(my.data))
+
 
 # Führen Sie das Skript mit dem "Source"-Knopf aus. Bemerken Sie dabei, dass wir
 # hier print() nutzen müssen, damit das Ergebnis gedruck wird. Das ist anders als 
