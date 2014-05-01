@@ -28,8 +28,8 @@ dat <- read.table("body_dim_long.tab",header=TRUE)
 # ist. Wie bei anderen Berechnungen können wir den Output von ggplot einer
 # Variabel zuweisen. Danach müssen wir nur den Variabelnamen in die Klammer von
 # print() einpacken.
-#weight.grafik <- ggplot(data=dat,aes(x=weight)) + geom_histogram(aes(y=..density..),fill="white",color="black") + geom_density()
-#print(weight.grafik)
+weight.grafik <- ggplot(data=dat,aes(x=weight)) + geom_histogram(aes(y=..density..),fill="white",color="black") + geom_density()
+print(weight.grafik)
 
 # Wenn wir verschiedene Grafiken mit einem Datenzsatz machen möchten, ist es
 # nervig, wenn wir den gemeinsamen Teil immer wieder eingeben müssen. Auch Teile
