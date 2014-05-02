@@ -46,7 +46,7 @@ print(weight.grafik.alt)
 # Weil das Gleiche ergeben wird, können wir auch den Ouput von qplot() mit
 # weiteren geom_XXXX() Funktionen erweitern. 
 weight.grafik.alt2 <- weight.grafik.alt + geom_histogram(aes(y=..density..),fill="white",color="black")
-#print(weight.grafik.alt2)
+print(weight.grafik.alt2)
 
 # Sie sehen an dieser Grafik auch, dass ggplot gestappelte Layers nutzt -- das 
 # Histogramm wird auf das Layer mit Dichte gestappelt und daher wird die 
@@ -72,6 +72,7 @@ print( weight.grafik.basis + geom_density(aes(color=sex,fill=sex),alpha=0.5) )
 # Weil wir deutlich weniger Männer haben und es einen bekannten Unterschied in der Größe 
 # zwischen Männern und Frauen gibt, schließen wir erstmal die Männer aus:
 frauen <- subset(dat,sex=="f")
+frauen
 summary(frauen)
 
 # (Sie sollten sich wirklich überlegen, ob der Schritt "gut" ist. Haben wir 
@@ -85,30 +86,32 @@ summary(frauen)
 #falls Sie unsicher sind, ob das Bild korrekt aussieht.) Hier und im Folgenden
 #sollten Sie die Plots so machen, damit man einen Vergleich zwischen den Gruppen
 #ziehen kann. Dafür gibt es verschiedene Möglichkeiten; die Wahl bleibt Ihnen
-#überlassen. frauen.studiengang.bw <- CODE_HIER print(frauen.studiengang.bw)
-
+#überlassen. 
+frauen.studiengang.bw <- ggplot(data=frauen,aes(x=major)) + geom_boxplot(aes(x=major,y=height))
+print(frauen.studiengang.bw)
 # Sehen die Studiengänge anders aus? Wir müssen hier noch relativ vorrsichtig
 # sein, weil die Gruppen *unbalanziert* sind, d.h. die Gruppen sind
 # unterschiedlich groß. Aber wie sieht der Vergleich auf den ersten Blick aus?
 # (Keine explizite Antwort nötig, nur eine Überlegung.)
 
 # Wir können natürlich auch die Dichte anschauen:
-#frauen.studiengang.dichte <- CODE_HIER
-#print(frauen.studiengang.dichte)
+frauen.studiengang.dichte <- ggplot(data=frauen,aes(x=major)) + geom_density(aes(x=height,color=major))
+
+print(frauen.studiengang.dichte)
 
 # Haben Sie den gleichen Eindruck wie bei Box-Whisker bekommen? Unterscheiden
 # sich die Gruppen?
 # (Keine explizite Antwort nötig, nur eine Überlegung.)
 
 # Welche Gruppe hat gefehlt? Wie viele Datenpunkte gab es für die Gruppe?
-# (Keine explizite Antwort nötig, nur eine Überlegung.)
+# Es fehlen Gruppe "Germanistische Linguistik", die auch nur eine Vertreterin der Gruppe hat, sowie die Gruppe "Sonstiges".
 
 # Wir können auch die verschiedenen Maße der Streuung berechnen.
 # In R gibt es oft verschiedene Möglichkeiten, etwas zu machen. Wir haben bisher
 # Teile einer Datenmenge mit subset() rausgezogen, aber wir können das auch mit 
-# einer weiteren Syntax machen:
-#klinisch <- frauen[frauen$major == "M.A..Klinische.Linguistik",]
-#print(klinisch)
+# einer weiteren Syntax machenn
+klinisch <- frauen[frauen$major == "M.A..Klinische.Linguistik",]
+print(klinisch)
 
 # Das sieht erstmal sehr vervwirrend aus, ist es aber nicht. Die eckigen
 # Klammern bestimmen die Auswahl an Elementen. Wir haben das ja bei Indizen in
@@ -124,8 +127,10 @@ summary(frauen)
 # Jetzt brauchen wir die Teilmenge für die anderen beiden Studiengänge, 
 # Linguistik Kognition und Kommunikation und Speech Science
 # HINT: wie sehen die Namen aus bzw. wie werden sie im data frame buchstabiert?
-#linkk <- frauen[CODE_HIER]
-#speech <- frauen[CODE_HIER] 
+linkk <- frauen[frauen$major == "M.A..Linguistik.Kognition.und.Kommunikation",]
+print(linkk)
+speech <- frauen[frauen$major == "M.A..Speech.Science",]
+print(speech)
 
 # Berechnen Sie -- ohne Hilfe von sd() -- die Standardabweichung für die Größe der drei 
 # Gruppen. Sie können auch weitere Zeilen hinzufügen, wenn es Ihnen so leichter
