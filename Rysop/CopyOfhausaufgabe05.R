@@ -156,6 +156,9 @@ varianz.z <- mean(quadr.abweichung.speech)
 speech.sd <- sqrt(varianz.z)
 
 # Berichten Sie jetzt die Mittelwerte und Standardabweichungen für die drei Gruppen. Die erste Gruppe steht hier als Muster:
-#print( paste("Studiengang: Klinische Linguistik","Mean:",mean(klinisch$height),"SD:",klinisch.sd) )
-#CODE_HIER
-
+print( paste("Studiengang: Klinische Linguistik","Mean:",mean(klinisch$height),"SD:",klinisch.sd) )
+#[1] "Studiengang: Klinische Linguistik Mean: 168.666666666667 SD 5.55777733351102"
+print(paste("Studiengang: Linguistik Kognition und Kommunikation","Mean:",mean(linkk$height),"SD",linkk.sd))
+#[1] "Studiengang: Linguistik Kognition und Kommunikation Mean: 169.5 SD 3.04138126514911
+print(paste("Studiengang: Speech Science","Mean:",mean(speech$height),"SD",speech.sd))
+#[1] "Studiengang: Speech Science Mean: 168.285714285714 SD 3.49343407446785"
