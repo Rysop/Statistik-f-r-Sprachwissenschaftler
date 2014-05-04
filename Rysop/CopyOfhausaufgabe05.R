@@ -19,7 +19,8 @@
 library(ggplot2)
 
 # und danach die Daten:
-dat <- read.table("body_dim_long.tab",header=TRUE) 
+> dat <- read.table("Rysop//CopyOfbody_dim_long.tab",header=TRUE)
+> dat
 
 # Wir haben im Kurs die Verteilung der Variabel weight angeschaut. In Skripten
 # werden Ergebnisse nicht automatich dargestellt, sondern nur dann, wenn ein
@@ -89,10 +90,13 @@ summary(frauen)
 #überlassen. 
 frauen.studiengang.bw <- ggplot(data=frauen,aes(x=major)) + geom_boxplot(aes(x=major,y=height))
 print(frauen.studiengang.bw)
-# Sehen die Studiengänge anders aus? Wir müssen hier noch relativ vorrsichtig
+
+# Sehen die Studiengänge anders aus? 
+#Ja.
+#Wir müssen hier noch relativ vorrsichtig
 # sein, weil die Gruppen *unbalanziert* sind, d.h. die Gruppen sind
 # unterschiedlich groß. Aber wie sieht der Vergleich auf den ersten Blick aus?
-# (Keine explizite Antwort nötig, nur eine Überlegung.)
+# Studentinnen des Studiengangs Linkk sind größer.
 
 # Wir können natürlich auch die Dichte anschauen:
 frauen.studiengang.dichte <- ggplot(data=frauen,aes(x=major)) + geom_density(aes(x=height,color=major))
