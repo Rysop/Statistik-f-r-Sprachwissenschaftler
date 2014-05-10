@@ -1,6 +1,6 @@
 % Hausaufgabe 07
 % Anna RYsop <rysop@students.uni-marburg.de>
-% 2014-05-08
+% 2014-05-11
 
 Falls die Umlaute in dieser und anderen Dateien nicht korrekt dargestellt werden, sollten Sie File > Reopen with Encoding > UTF-8 sofort machen (und auf jeden Fall ohne davor zu speichern), damit die Enkodierung korrekt erkannt wird! 
 
@@ -139,7 +139,7 @@ ggplot(data = noten.dist, aes(x = Notenpunkte, y = P, color = Standardabweichung
 
 Ich habe die Grenzen der Grafik ein bisschen breiter gestellt, sodass man die Endpunkte klar sieht und Sie auch einen weiteren `ggplot`-Befehl kennen lernen. 
 
-Welche Verteilung sieht am fairsten aus? Warum?
+Welche Verteilung sieht am fairsten aus? Warum? ??? Wenn die Standardabweichung 5 beträgt, ist die Kurve der Normalverteilung flacher, das heißst, dass zwar das Maximum immer noch bei 7,5 Punkten liegt, das Maximum jedoch nicht so hoch ist und somit die Noten besser verteilt sind. Allerdings fallen so auch mehr Leute durch.
 
 Wir können das konkreter machen: welcher Anteil der Studenten bekommt bei den jeweiligen Verteilungen eine 1 (zumindest 13 NP)? Für die Verteilung mit $\sigma = 3$ sieht die Berechnung mit R so aus:
 
@@ -180,14 +180,25 @@ for (s in c(3, 4, 5)) {
 ## [1] "Bei einer Standabweichung von 5 fallen 27.4253117750074 % durch."
 ```
 
+[1] "Bei einer Standardabweichung von 3 fallen 15.8655253931457 % durch."
+[1] "Bei einer Standardabweichung von 4 fallen 22.6627352376868 % durch."
+[1] "Bei einer Standardabweichung von 5 fallen 27.4253117750074 % durch."
 
 Aber wir hoffen alle, dass wir doch eine gute Note bekommen. Fügen Sie einen Code-Block hier ein, der das gleiche aber mit "ausgezeichneten" Noten (=1 bzw. >= 13) macht. (Bei evtl. Copy-Paste nicht vergessen, "fallen...durch" durch etwas Passendes zu ersetzen!)  
 
 code_block_hier
+> for(s in c(3,4,5) ){
++ ausgezeichnet <- pnorm(13, mean = mu, sd = s, lower.tail=FALSE)
++ output <- paste ("Bei einer Standardabweichung von ", s, "reüssieren", ausgezeichnet * 100, "%.")
++ print(output)
++ }
+[1] "Bei einer Standardabweichung von  3 reüssieren 4.77903522728147 %."
+[1] "Bei einer Standardabweichung von  4 reüssieren 10.5649773666855 %."
+[1] "Bei einer Standardabweichung von  5 reüssieren 15.8655253931457 %."
 
 Wie steht die Anzahl guter Noten in Beziehung zur Anzahl schlechter Noten? 
 
-antwort_hier
+Schlechte Noten mit sd=3 ergibt selben Wert wie gute Noten mit sd=5 (15.87%). Je größer die Standardabweichung, desto größer wird der Prozentwert.
 
 Warum?
 
@@ -200,7 +211,7 @@ Schiefe (*skewness*) beschriebt die (A)Symmetrie einer Verteilung. Eine Verteilu
 
 Die Verteilung von Noten ist oft schief mit mehr guten Noten. Ist die Verteilung rechts- oder linksschief?
 
-antwort_hier
+Die Verteilung ist linksschief, da sich der Gipfel (Häufung guter Noten) auf der rechten Seite befindet, somit ist die linke Seite breiter.
 
 Vielleicht hilft folgende Grafik mit der Visualisierung:
 
