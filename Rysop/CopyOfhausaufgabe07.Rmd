@@ -61,7 +61,7 @@ ggplot(data=noten.dist,aes(x=Notenpunkte,y=P,color=Standardabweichung)) + geom_l
 ```
 Ich habe die Grenzen der Grafik ein bisschen breiter gestellt, sodass man die Endpunkte klar sieht und Sie auch einen weiteren `ggplot`-Befehl kennen lernen. 
 
-Welche Verteilung sieht am fairsten aus? Warum? ???
+Welche Verteilung sieht am fairsten aus? Warum? ??? Wenn die Standardabweichung 5 beträgt, ist die Kurve der Normalverteilung flacher, das heißst, dass zwar das Maximum immer noch bei 7,5 Punkten liegt, das Maximum jedoch nicht so hoch ist und somit die Noten besser verteilt sind. Allerdings fallen so auch mehr Leute durch.
 
 Wir können das konkreter machen: welcher Anteil der Studenten bekommt bei den jeweiligen Verteilungen eine 1 (zumindest 13 NP)? Für die Verteilung mit $\sigma = 3$ sieht die Berechnung mit R so aus:
 ```{r}
@@ -81,10 +81,21 @@ for(s in c(3,4,5) ){
   print(output)
 }
 ```
+[1] "Bei einer Standardabweichung von 3 fallen 15.8655253931457 % durch."
+[1] "Bei einer Standardabweichung von 4 fallen 22.6627352376868 % durch."
+[1] "Bei einer Standardabweichung von 5 fallen 27.4253117750074 % durch."
 
 Aber wir hoffen alle, dass wir doch eine gute Note bekommen. Fügen Sie einen Code-Block hier ein, der das gleiche aber mit "ausgezeichneten" Noten (=1 bzw. >= 13) macht. (Bei evtl. Copy-Paste nicht vergessen, "fallen...durch" durch etwas Passendes zu ersetzen!)  
 
 code_block_hier
+> for(s in c(3,4,5) ){
++ ausgezeichnet <- pnorm(13, mean = mu, sd = s, lower.tail=FALSE)
++ output <- paste ("Bei einer Standardabweichung von ", s, "reüssieren", ausgezeichnet * 100, "%.")
++ print(output)
++ }
+[1] "Bei einer Standardabweichung von  3 reüssieren 4.77903522728147 %."
+[1] "Bei einer Standardabweichung von  4 reüssieren 10.5649773666855 %."
+[1] "Bei einer Standardabweichung von  5 reüssieren 15.8655253931457 %."
 
 Wie steht die Anzahl guter Noten in Beziehung zur Anzahl schlechter Noten? 
 
