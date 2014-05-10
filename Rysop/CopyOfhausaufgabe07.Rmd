@@ -99,7 +99,7 @@ code_block_hier
 
 Wie steht die Anzahl guter Noten in Beziehung zur Anzahl schlechter Noten? 
 
-antwort_hier
+Schlechte Noten mit sd=3 ergibt selben Wert wie gute Noten mit sd=5 (15.87%). Je größer die Standardabweichung, desto größer wird der Prozentwert.
 
 Warum?
 
@@ -112,7 +112,7 @@ Schiefe (*skewness*) beschriebt die (A)Symmetrie einer Verteilung. Eine Verteilu
 
 Die Verteilung von Noten ist oft schief mit mehr guten Noten. Ist die Verteilung rechts- oder linksschief?
 
-antwort_hier
+Die Verteilung ist linksschief, da sich der Gipfel (Häufung guter Noten) auf der rechten Seite befindet, somit ist die linke Seite breiter.
 
 Vielleicht hilft folgende Grafik mit der Visualisierung:
 
