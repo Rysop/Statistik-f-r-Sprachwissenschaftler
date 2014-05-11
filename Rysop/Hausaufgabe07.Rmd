@@ -98,6 +98,7 @@ output <- paste ("Bei einer Standardabweichung von ", s, "sind", ausgezeichnet *
 [1] "Bei einer Standardabweichung von  5 reüssieren 15.8655253931457 %."
 ```
 
+
 Wie steht die Anzahl guter Noten in Beziehung zur Anzahl schlechter Noten? 
 
 Schlechte Noten mit sd=3 ergibt selben Wert wie gute Noten mit sd=5 (15.87%). Je größer die Standardabweichung, desto größer wird der Prozentwert.
@@ -140,20 +141,21 @@ Beantworten Sie ein paar Fragen über die Verteilung, indem Sie den passenden R-
 1. Wie viele Studenten bekommen zwischen 7 und 9 NP bei einer Standardabweichung von 3?
 
     `r (pnorm(9,mean=mu,sd=3) - pnorm(7,mean=mu,sd=3) ) * n` Studenten bekommen zwischen 7 und 9 Notenpunkten. 
+  
     
     Wichtig: bei Wahrscheinlichkeits- und Häufigkeitsverteilung ist der linke Rand inklusiv aber der rechte Rand exklusiv! Das heißt, wir zählen hiermit die Leute, die bis zu 9 NP bekommen haben aber nicht die, die tatsächlich 9 NP bekommen haben!
 
 2. Wie viele Studenten bekommen zumindest 10 NP?
 
-    `code_hier` Studenten bekommen zumindest 10 Notenpunkte.
+    `r (pnorm(10,mean=mu,sd=3,lower.tail=FALSE) ) * n` Studenten bekommen zumindest 10 Notenpunkte.
 
 3. Wie viele Studenten bekommen weniger als 10 NP?
 
-    `code_hier` Studenten bekommen weniger als 10 Notenpunkte.
+    `r pnorm(10, mean=mu,sd=3)*n` Studenten bekommen weniger als 10 Notenpunkte.
 
 4. Wie viele Studenten bekommen weniger als 8 NP?
 
-    `code_hier` Studenten bekommen weniger als 8 Notenpunkte.
+    `r pnorm(8, mean=mu, sd=3)*n` Studenten bekommen weniger als 8 Notenpunkte.
 
 
 (Die Einrückung mit 4 Leerschlägen ist die Syntax für mehrere Absätze pro Punkt auf der Liste.)
@@ -165,50 +167,63 @@ Um überdurchschnittlich zu sein, muss man mehr als `r qnorm(0.5,mean=mu,sd=3)` 
 
 Nicht so überraschend, dass "überdurchschnittlich" auch "mehr Punkte als den Durchschnitt bekommen" heißt! Wie sieht es aus, wenn wir besser als 99% der anderen abschließen möchten?
 
-Um in dem besten 1% abzuschließen, muss man zumindest `code_hier` Notenpunkte bekommen.
+Um in dem besten 1% abzuschließen, muss man zumindest `qnorm(0.99,mean=mu,sd=3)` Notenpunkte bekommen.
 
 ## z-Transformation
 Bei der Überprüfung der Lehrqualität scheint es der Verwaltung, dass ein gewisser Dozent andere Noten als andere Dozenten vergibt. Es wird entschieden, dass der Notenspiegel bei den Teilnehmern in einem von seinen Kursen getestet wird, um zu schauen, ob er sich von signifikant von der idealisierten Notenverteilung ($\mu=8,\sigma=3$) unterscheidet. Um zu zeigen, dass Gott $\alpha=0.06$ so viel liebt wie $\alpha=0.05$ `r citep("10.1037/0003-066X.44.10.1276")`, setzt die Verwaltung das Signikanzniveau auf 0.06. 
 
-Der kritische Wert für einen einseitigen $z$-Test ist `code_hier`.
+Der kritische Wert für einen einseitigen $z$-Test ist `qnorm(0.94)`.
 
-Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$`code_hier`.
+Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$`qnorm(0.97)`.
 
 ### Gibt es einen Unterschied?
-Bei diesem Dozenten ist die Verwaltung wirklich unsicher, ob und was für einen Unterschied es geben könnte. (Welche Testart sollte man hier nutzen?)
+Bei diesem Dozenten ist die Verwaltung wirklich unsicher, ob und was für einen Unterschied es geben könnte. 
+Am besten einen zweiseitigen Test, da man nicht weiß, in welche Richtung der Unterschied geht.
 
 In einem kleinen Seminar mit 7 Studenten beträgt der Durchschnittswert 10. Unterscheidet sich der Notenspiegel von dem idealen? Berechnen Sie den $z$-Test:
 
-code_hier
+```{r}
+z.n7 <- sqrt(7) * ((10-8)/3)
+print(z.n7)
+```
 
-Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
+Das ist ein **insignifikanter** Unterschied. 
 
 In einer Vorlesung vom selben Dozenten mit 50 Teilnehmern beträgt der Durchschnittswert wieder 10. (Es scheint, dass der Dozent 10 besonders toll findet.) Berechnen Sie den $z$-Test:
 
-code_hier
+```{r}
+z.n50 <- sqrt(50) * ((10-8)/3)
+print(z.n50)
+```
 
-Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
+Das ist ein **signifikanter** Unterschied. 
 
-Ist die Benotung vom Dozenten weniger als ideal? 
+Ist die Benotung vom Dozenten weniger als ideal? Der Unterschied zwischen kritischem Wert und tatsächlichem Wert ist sehr groß, deswegen ist die Benotung nicht ideal.
 
 ### Ein anderer, böserer? Dozent
-Die Verwaltung ist auch auf einen anderen Dozenten aufmerksam geworden, weil manche Studenten behaupten, er würde zu streng benoten. (Welche Testart sollte man hier nutzen?)
+Die Verwaltung ist auch auf einen anderen Dozenten aufmerksam geworden, weil manche Studenten behaupten, er würde zu streng benoten. (Welche Testart sollte man hier nutzen?) Einseitigen Test.
 
 In einem mittelgroßen Seminar mit 20 Studenten beträgt der Durchschnittswert 7. Der Dozent sagt, dass das wunderbar nah am Erwartungswert (8) ist, und dass man ihn in Ruhe lassen sollte. Ist er zu streng?
 
 Berechnen Sie den $z$-Test:
 
-code_hier
+```{r}
+z.n20 <- sqrt(20) * ((7-8)/3)
+print(z.n20)
+```
 
-Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
+Das ist ein **insignifikanter** Unterschied. 
 
 Später ergibt sich, dass es eigentlich 25 Studenten im Kurs gab. (Der Dozent hat "einen Tippfehler" gemacht, als er seine Teilnehmerzahl per Mail an die Verwaltung geschickt hat.) Der Durchschnittswert bleibt -- behauptet der Dozent -- immer noch bei 7. Er behauptet weiterhin, dass das wunderbar nah am Erwartungswert (8) ist, und dass man ihn in Ruhe lassen sollte. Ist er zu streng?
 
 Berechnen Sie den $z$-Test:
 
-code_hier
+```{r}
+z.n25 <- sqrt(25) * ((7-8)/3)
+print(z.n25)
+```
 
-Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
+Das ist ein **signifikanter** Unterschied. 
 
 ## Zum Überlegen
 Gibt es einen Grund, weshalb die Noten normal verteilt sein sollten? Warum ist das die übliche Annahme?
@@ -221,3 +236,4 @@ bibliography()
 
 # Lizenz
 Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+Das Werk dient nur zu Prüfungszwecken!
