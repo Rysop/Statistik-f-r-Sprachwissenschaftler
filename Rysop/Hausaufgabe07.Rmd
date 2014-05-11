@@ -90,7 +90,7 @@ Aber wir hoffen alle, dass wir doch eine gute Note bekommen. Fügen Sie einen Co
 ```{r}
 for(s in c(3,4,5) ){
 ausgezeichnet <- pnorm(13, mean = mu, sd = s, lower.tail=FALSE)
-output <- paste ("Bei einer Standardabweichung von ", s, "reüssieren", ausgezeichnet * 100, "%.")
+output <- paste ("Bei einer Standardabweichung von ", s, "sind", ausgezeichnet * 100, "% erfolgreich.")
  print(output)
 }
 [1] "Bei einer Standardabweichung von  3 reüssieren 4.77903522728147 %."
