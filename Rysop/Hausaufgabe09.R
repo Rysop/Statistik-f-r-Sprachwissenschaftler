@@ -78,7 +78,7 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # F-Test "Varianzen Ungleich" ist.
 
 # Berechenen Sie den Levene Test:
-#printleveneTest(rt$RT~rt$subj)
+#print(leveneTest(rt$RT~rt$subj))
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
 # Levene Test "Varianzen Gleich" ist.
@@ -135,7 +135,8 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # Daten. Nach jedem Test sollten Sie auch programmatisch (=durch if-Blöcke)
 # ausdrücken, ob die Varianzen homogen sind.
 
-# CODE_HIER
+# var.test(rt$logRT~rt$subj)
+# print(leveneTest(rt$logRT~rt$subj))
 
 # Sind die Daten "normaler" gewordern? Berechnen Sie den Shapiro-Test für beide 
 # Gruppen. Nach jeder Gruppe sollten Sie auch programmatisch (=durch if-Blöcke)
