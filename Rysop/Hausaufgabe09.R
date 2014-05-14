@@ -87,8 +87,8 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # eine Korrektur der Freiheitsgerade macht. Bei homogener Varianz sollten beide
 # Variante ähnliche bzw. (fast) gleiche Ergebnisse liefern. Ist das hier der
 # Fall?
-# two.sample <- CODE_HIER
-# welch <- CODE_HIER
+# two.sample <- t.test(rt.subj.1,rt.subj.2,var.equal=TRUE)
+# welch <- t.test(rt.subj.1,rt.subj.2)
 
 # print(two.sample)
 # print(welch)
@@ -99,6 +99,7 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # Unterschied sehen:
 # t.diff <- welch$statistic - two.sample$statistic
 # print(paste("Die Differenz zwischen den beiden t-Werten ist",t.diff,"."))
+#[1] "Die Differenz zwischen den beiden t-Werten ist 0 ."
 
 # Sind die Daten normal verteilt? Wir berechnen Sie den Shapiro Test für erste Versuchsperson:
 # shapiro <- shapiro.test(rt[rt$subj==1,"RT"])
