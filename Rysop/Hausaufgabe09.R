@@ -113,11 +113,14 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # }else{
 #   print("Shapiro's test signikant, die Daten sind nicht normal verteilt.")
 # }
+#"Shapiro's test insignifikant, die Daten sind normal verteilt."
 
 # Berechnen Sie Shapiro's Test für die andere Versuchsperson und drücken Sie mit
 # einem if-Block aus, ob die Daten normal verteilt sind.
 
-# CODE_HIER
+# shapiro2 <- shapiro.test(rt[rt$subj==2,"RT"])
+# print(shapiro2)
+# if (shapiro2$p.value > 0.05){print("Shapiro's test insignifikant, die Daten sind normal verteilt.")}else{print("Shapiro's test signifikant, die Daten sind nicht normal verteilt.")}
 
 # Wir haben auch Transformationen bei schiefen Datenverteilungen angesprochen.
 # Die logaritmische Verteilung ist ziemlich beliebt bei Reaktionszeitsdaten.
