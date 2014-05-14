@@ -127,7 +127,7 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 
 # rt$logRT <- log(rt$RT)
 # print(summary(rt$logRT))
-# logrt.plot <- CODE_HIER
+# logrt.plot <- qplot(x=rt$logRT,color=subj,fill=subj,data=rt,geom="density",alpha=I(0.03))
 # print(logrt.plot)
 
 # Sieht die Verteilung besser aus? Sind die Varianzen "homogener" geworden? 
