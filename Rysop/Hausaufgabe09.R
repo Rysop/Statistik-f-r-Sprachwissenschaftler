@@ -1,6 +1,6 @@
 # Hausaufgabe 09
-# Phillip Alday <phillip.alday@staff.uni-marburg.de>
-# 2014-05-02
+# Anna Rysop <rysop@students.uni-marburg.de>
+# 2014-05-14
 # Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
 
 
@@ -69,7 +69,9 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # Sie von vorneherein etwas behaupten haben.
 
 # Berechnen Sie jetzt den F-Test:
-#print(CODE_HIER)
+#print var.test(rt$RT~rt$subj)
+#oder: rt.bw <- rt[rt$subj == "1" | rt$subj == "2",c("subj","RT")]
+# var.test(rt.bw$RT~rt.bw$subj)
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
 # F-Test "Varianzen Ungleich" ist.
