@@ -78,7 +78,7 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # F-Test "Varianzen Ungleich" ist.
 
 # Berechenen Sie den Levene Test:
-#print(CODE_HIER)
+#printleveneTest(rt$RT~rt$subj)
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
 # Levene Test "Varianzen Gleich" ist.
