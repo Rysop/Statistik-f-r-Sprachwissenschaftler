@@ -72,6 +72,7 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 #print var.test(rt$RT~rt$subj)
 #oder: rt.bw <- rt[rt$subj == "1" | rt$subj == "2",c("subj","RT")]
 # var.test(rt.bw$RT~rt.bw$subj)
+# oder var.test(rt.subj.1,rt.subj.2) , bei vorherigem Bestimmen von: > rt.subj.1 <- rt[rt$subj == "1","RT"] und > rt.subj.2 <- rt[rt$subj == "2","RT"]
 
 # Sind die Varianzen homogen? Vergessen Sie nicht, dass die Nullhypothese beim
 # F-Test "Varianzen Ungleich" ist.
