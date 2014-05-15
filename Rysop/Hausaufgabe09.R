@@ -149,6 +149,9 @@ print(shapiro.log.1)
 shapiro.log.2 <- shapiro.test(rt[rt$subj==2,"logRT"])
 print(shapiro.log.2)
 
+if (shapiro.log.1$p.value >0.05){print("Shapiro's test insignifikant, die Daten sind normal verteilt.")}else{print("Shapiro's test signifikant, die Daten sind nicht normal verteilt.")}
+if (shapiro.log.2$p.value > 0.05){print("Shapiro's test insignifikant, die Daten sind normal verteilt.")}else{print("Shapiro's test signifikant, die Daten sind nicht normal verteilt.")}
+
 # Hat die logarithmische Transformation insgesamt geholfen? Berechnen Sie zum
 # Schluss den (Welch) t-Test für die logarithmischen Daten. Bekommen Sie das
 # gleiche Ergebnisse wie bei den Ausgangsdaten?
