@@ -56,8 +56,8 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # behandelt hat, obwohl sie eigentlich kategorisch ist. Das müssen wir ändern:
 # rt$subj <- as.factor(rt$subj)
 # 
-# rt.plot <- qplot(x=RT,color=subj,fill=subj,data=rt, geom="density",alpha=I(0.3))
-# print(rt.plot)
+rt.plot <- qplot(x=RT,color=subj,fill=subj,data=rt, geom="density",alpha=I(0.3))
+print(rt.plot)
 
 # Haben die Daten der beiden Gruppen -- die wiederholten Messwerte der einzelnen
 # Probanden bilden ja Gruppen -- homogene Varianz? Bevor Sie irgendwelche Tests 
@@ -144,6 +144,10 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # (Für die fortgeschrittenen: hier könnte man auch eine for-Schleife nutzen...)
 
 # CODE_HIER
+shapiro.log.1 <- shapiro.test(rt[rt$subj==1,"logRT"])
+print(shapiro.log.1)
+shapiro.log.2 <- shapiro.test(rt[rt$subj==2,"logRT"])
+print(shapiro.log.2)
 
 # Hat die logarithmische Transformation insgesamt geholfen? Berechnen Sie zum
 # Schluss den (Welch) t-Test für die logarithmischen Daten. Bekommen Sie das
