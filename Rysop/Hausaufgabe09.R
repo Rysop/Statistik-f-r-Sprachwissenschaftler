@@ -1,6 +1,6 @@
 # Hausaufgabe 09
 # Anna Rysop <rysop@students.uni-marburg.de>
-# 2014-05-14
+# 2014-05-16
 # Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
 
 
@@ -50,11 +50,11 @@ rt <- read.table("punkt_rt.tab",header=TRUE)
 # (http://osdoc.cogsci.nl/) auch zu Hause ausführen!)
 
 # Wir schauen uns erst mal eine Zusammenfassung der Daten an:
-# print(summary(rt))
+print(summary(rt))
 
 # Wir sehen sofort, dass R die Variabel "subj" als numerische Variable
 # behandelt hat, obwohl sie eigentlich kategorisch ist. Das müssen wir ändern:
-# rt$subj <- as.factor(rt$subj)
+rt$subj <- as.factor(rt$subj)
 # 
 rt.plot <- qplot(x=RT,color=subj,fill=subj,data=rt, geom="density",alpha=I(0.3))
 print(rt.plot)
@@ -69,8 +69,9 @@ print(rt.plot)
 # Sie von vorneherein etwas behaupten haben.
 
 # Berechnen Sie jetzt den F-Test:
-#print var.test(rt$RT~rt$subj)
-#oder: rt.bw <- rt[rt$subj == "1" | rt$subj == "2",c("subj","RT")]
+print(var.test(rt$RT~rt$subj))
+#oder: 
+rt.bw <- rt[rt$subj == "1" | rt$subj == "2",c("subj","RT")]
 # var.test(rt.bw$RT~rt.bw$subj)
 # oder var.test(rt.subj.1,rt.subj.2) , bei vorherigem Bestimmen von: > rt.subj.1 <- rt[rt$subj == "1","RT"] und > rt.subj.2 <- rt[rt$subj == "2","RT"]
 
