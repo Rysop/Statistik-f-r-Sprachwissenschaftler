@@ -52,7 +52,7 @@ women.metric$weight.kg <- women.metric$weight / 2.2 # 2.2 lb pro kg
 # Default bei ggplot2 LOESS und wir wollen normale lineare Regression.
 ggplot(women.metric,aes(x=height,y=weight)) +  geom_point() + geom_smooth(method="lm")
 
-# Ist der Fit gut? Schauen wir uns die Regression an:
+3# Ist der Fit gut? Schauen wir uns die Regression an:
 m <- lm(weight ~ height, data=women.metric)
 print(summary(m))
 
