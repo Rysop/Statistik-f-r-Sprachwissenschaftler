@@ -40,7 +40,8 @@ library(ggplot2)
 # und danach die Daten:
 body <- read.table("Data/body_dim_long.tab",header=TRUE) 
 
-# Wir werden auch den Datensatz women nutzen, der schon mit R geliefert wird.
+# Wir werden auch den Datensatz women.metric <- women
+en nutzen, der schon mit R geliefert wird.
 # Mehr Information zum Datensatz bekommen Sie mit ?women. Die Angaben sind in
 # US-Einheiten, weshalb wir eine Kopie mit den SI-Einheiten machen.
 women.metric <- women
