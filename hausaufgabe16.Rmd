@@ -45,12 +45,33 @@ Mögliche Ausgangsfragen sind unter anderem:
 * Gibt es einen Zusammenhang zwischen Farbe und Klarheit? Zwischen Farbe und Carat? Zwischen Farbe und Tiefe?
 * ...
 
+
+
+
+*Vergessen Sie dabei nicht, dass wir bisher nur Methoden gelernt haben, wo die abhängige Variable zumindest intervallskaliert ist!*
+
+Sie können sich auch [das *ggplot* Buch](http://dx.doi.org/10.1007/978-0-387-98141-3) zur Inspiration anschauen, v.a. Abbildungen 4.7, 4.8, 4.9, 5.2, 5.3, 5.4, 5.6, 5.14, 7.16, 9.1  und Kapitel 2.2-2.5 könnten inspirierend wirken. Den Code zur Erstellung der Figuren findet man immer im Haupttext.
+
+**Originale Fragestellungen und Auswertungen werden mit Bonuspunkten belohnt!** 
+
+Hier ein paar Grafiken (auch im Buch zu finden):
+```{r}
+ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point()
+ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point(alpha=0.3)
+ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point() + facet_wrap(~color)
+```
 # Zusammenhang zwischen Karat und Preis
 ```{r}
 ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point(alpha=0.8)
 ```
 
 Anhand dieser Darstellung sieht man, dass je mehr Karat die Datenpunkte darstellen, preislich ansteigen.Daraus lässt sich ableiten, dass Karat einen Einfluss auf den Preis hat. Dies wird statistisch mittels Regressionsanalyse überprüft.
+
+```{r}
+lm(price~carat, data=diamonds)
+summary(lm(price~carat, data = diamonds))
+```
+R² nimmt den Wert 0.85 an, ist also ziemlich dicht an 1, was heißt, dass viel Varianz erklärt ist. Somit hat Karat einen messbaren Einfluss auf Preis.
 
 # Preis gegen length, width und depth
 
@@ -68,33 +89,32 @@ Ebenso verhält es sich mit der Variablen depth (z), auch hier gibt es für R² 
 summary(lm(price~z, data=diamonds))
 ```
 
-Da es sich bei den Variablen cut, color und clarity um nominalskalierte Daten handelt, kann mit diesen Variablen keine lineare Regression berechnet werden.
+Da es sich bei den Variablen cut, color und clarity um nominalskalierte Daten handelt, kann mit diesen Variablen keine lineare Regression berechnet werden. Allerdings bin ich mir nicht im Klaren darüber, wie man die nominalskalierten Daten dennoch mit den intervallskalierten verrechnen kann.
+
+Der Preis eines Diamanten wird am meisten vom Karatgehalt bestimmt, Größe, Länge und Breite haben aber auch einen Einfluss auf den Preis. Der Grund hierfür könnte sein, dass Größe, Länge und Breite einen großen Einfluss auf den Karatgehalt haben. Dies wird im Folgenden untersucht.
 
 ```{r}
-summary(lm(price~x, data=diamonds))
+summary(lm(carat~x, data=diamonds))
 ```
+Bei dieser Berechnung zeigt sich, dass R² einen Wert von 0.95 aufweist, was bedeutet, dass sehr viel Varianz erklärt wird. Größe hat also einen sehr großen Einfluss auf Karat.
 
 ```{r}
-lm(price~carat, data=diamonds)
-summary(lm(price~carat, data = diamonds))
+summary(lm(carat~y, data=diamonds))
 ```
-R² nimmt den Wert 0.85 an, ist also ziemlich dicht an 1, was heißt, dass viel Varianz erklärt ist. Somit hat Karat einen messbaren Einfluss auf Preis.
+Auch die Variable y (width) erklärt viel Varianz bei Karat (R²=0.91), was ein klein wenig geringer ist, als bei x.
 
-*Vergessen Sie dabei nicht, dass wir bisher nur Methoden gelernt haben, wo die abhängige Variable zumindest intervallskaliert ist!*
-
-Sie können sich auch [das *ggplot* Buch](http://dx.doi.org/10.1007/978-0-387-98141-3) zur Inspiration anschauen, v.a. Abbildungen 4.7, 4.8, 4.9, 5.2, 5.3, 5.4, 5.6, 5.14, 7.16, 9.1  und Kapitel 2.2-2.5 könnten inspirierend wirken. Den Code zur Erstellung der Figuren findet man immer im Haupttext.
-
-**Originale Fragestellungen und Auswertungen werden mit Bonuspunkten belohnt!** 
-
-Hier ein paar Grafiken (auch im Buch zu finden):
 ```{r}
-ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point()
-ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point(alpha=0.3)
-ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point() + facet_wrap(~color)
+summary(lm(carat~z, data=diamonds))
 ```
+Auch bei z (depth) liegt der Wert von R² bei 0.91.
+
+Die Variablen length, width und depth haben einen großen Einfluss auf Karat, und, da Karat einen großen Einfluss auf den Preis hat, auch einen großen Einfluss auf den Preis.
+
 
 # Noch eine Überlegung
 Haben Sie dabei explorativ oder konfirmativ gearbeitet? Was hat das für eine Auswirkung auf die Interpretation der Ergebnisse?
 
+Bei dieser Hausaufgabe habe ich explorativ gearbeitet, das heißt, dass ich keiner richtigen Fragestellung gefolgt bin, sondern ein wenig "herumexperimentiert" habe. Wäre ich konfirmativ vorgegangen, hätte ich gezielter Tests anwenden können, um meine Fragestellungen zu beantworten, um meine Hypothese zu verifizieren (oder auch zu verwerfen).
+
 # Lizenz
-Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+Dieses Werk dient ausschließlich Prüfungszwecken.
