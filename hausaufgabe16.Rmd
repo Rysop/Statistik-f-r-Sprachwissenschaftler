@@ -45,6 +45,41 @@ Mögliche Ausgangsfragen sind unter anderem:
 * Gibt es einen Zusammenhang zwischen Farbe und Klarheit? Zwischen Farbe und Carat? Zwischen Farbe und Tiefe?
 * ...
 
+# Zusammenhang zwischen Karat und Preis
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point(alpha=0.8)
+```
+
+Anhand dieser Darstellung sieht man, dass je mehr Karat die Datenpunkte darstellen, preislich ansteigen.Daraus lässt sich ableiten, dass Karat einen Einfluss auf den Preis hat. Dies wird statistisch mittels Regressionsanalyse überprüft.
+
+# Preis gegen length, width und depth
+
+Auch die Größe scheint einen Einfluss zu haben, da R² 0.78 sind. Der Wert ist jedoch kleiner als der von Karat, was bedeutet, dass die Größe weniger Varianz erklärt als Karat. Den Einfluss kann man auch in der Grafik sehen.
+```{r}
+summary(lm(price~x, data=diamonds))
+ggplot(diamonds,aes(x=x, y=price, color=carat)) + geom_point(alpha=0.5)
+```
+Einen ähnlichen Wert nimmt R² bei der linearen Regression von Preis und Breite (width) an, nämlich R²=0.75.
+```{r}
+summary(lm(price~y,data=diamonds))
+```
+Ebenso verhält es sich mit der Variablen depth (z), auch hier gibt es für R² einen Wert von 0.74, was bedeutet, dass so viel Varianz durch die Variable erklärt wird.
+```{r}
+summary(lm(price~z, data=diamonds))
+```
+
+Da es sich bei den Variablen cut, color und clarity um nominalskalierte Daten handelt, kann mit diesen Variablen keine lineare Regression berechnet werden.
+
+```{r}
+summary(lm(price~x, data=diamonds))
+```
+
+```{r}
+lm(price~carat, data=diamonds)
+summary(lm(price~carat, data = diamonds))
+```
+R² nimmt den Wert 0.85 an, ist also ziemlich dicht an 1, was heißt, dass viel Varianz erklärt ist. Somit hat Karat einen messbaren Einfluss auf Preis.
+
 *Vergessen Sie dabei nicht, dass wir bisher nur Methoden gelernt haben, wo die abhängige Variable zumindest intervallskaliert ist!*
 
 Sie können sich auch [das *ggplot* Buch](http://dx.doi.org/10.1007/978-0-387-98141-3) zur Inspiration anschauen, v.a. Abbildungen 4.7, 4.8, 4.9, 5.2, 5.3, 5.4, 5.6, 5.14, 7.16, 9.1  und Kapitel 2.2-2.5 könnten inspirierend wirken. Den Code zur Erstellung der Figuren findet man immer im Haupttext.

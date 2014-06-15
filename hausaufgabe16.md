@@ -98,6 +98,59 @@ Mögliche Ausgangsfragen sind unter anderem:
 * Gibt es einen Zusammenhang zwischen Farbe und Klarheit? Zwischen Farbe und Carat? Zwischen Farbe und Tiefe?
 * ...
 
+# Zusammenhang zwischen Karat und Preis
+
+```r
+ggplot(diamonds, aes(x = carat, y = price, color = clarity)) + geom_point(alpha = 0.8)
+```
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+
+
+Anhand dieser Darstellung sieht man, dass je mehr Karat die Datenpunkte darstellen, preislich ansteigen.Daraus lässt sich ableiten, dass Karat einen Einfluss auf den Preis hat. Dies wird statistisch mittels Regressionsanalyse überprüft.
+
+
+```r
+lm(price ~ carat, data = diamonds)
+```
+
+```
+## 
+## Call:
+## lm(formula = price ~ carat, data = diamonds)
+## 
+## Coefficients:
+## (Intercept)        carat  
+##       -2256         7756
+```
+
+```r
+summary(lm(price ~ carat, data = diamonds))
+```
+
+```
+## 
+## Call:
+## lm(formula = price ~ carat, data = diamonds)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -18585   -805    -19    537  12732 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  -2256.4       13.1    -173   <2e-16 ***
+## carat         7756.4       14.1     551   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1550 on 53938 degrees of freedom
+## Multiple R-squared:  0.849,	Adjusted R-squared:  0.849 
+## F-statistic: 3.04e+05 on 1 and 53938 DF,  p-value: <2e-16
+```
+
+R² nimmt den Wert 0.85 an, ist also ziemlich dicht an 1, was heißt, dass viel Varianz erklärt ist. Somit hat Karat einen messbaren Einfluss auf Preis.
+
 *Vergessen Sie dabei nicht, dass wir bisher nur Methoden gelernt haben, wo die abhängige Variable zumindest intervallskaliert ist!*
 
 Sie können sich auch [das *ggplot* Buch](http://dx.doi.org/10.1007/978-0-387-98141-3) zur Inspiration anschauen, v.a. Abbildungen 4.7, 4.8, 4.9, 5.2, 5.3, 5.4, 5.6, 5.14, 7.16, 9.1  und Kapitel 2.2-2.5 könnten inspirierend wirken. Den Code zur Erstellung der Figuren findet man immer im Haupttext.
@@ -110,20 +163,20 @@ Hier ein paar Grafiken (auch im Buch zu finden):
 ggplot(diamonds, aes(x = carat, y = price, color = color)) + geom_point()
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-41.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-61.png) 
 
 ```r
 ggplot(diamonds, aes(x = carat, y = price, color = color)) + geom_point(alpha = 0.3)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-42.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-62.png) 
 
 ```r
 ggplot(diamonds, aes(x = carat, y = price, color = color)) + geom_point() + 
     facet_wrap(~color)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-43.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-63.png) 
 
 
 # Noch eine Überlegung
