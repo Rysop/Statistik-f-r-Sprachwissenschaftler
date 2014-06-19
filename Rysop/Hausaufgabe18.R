@@ -52,10 +52,10 @@ linreg <- data.frame(x1,x2,y)
 # wir haben y aus einfachen Summen von x1 und x2 berechnet. Wir berechnen
 # zunächst die lineare Regression für die einzelnen unabhängige Variablen.
 
-# CODE_HIER (x1)
+# lm(y~x1,data=linreg) (x1)
 
 
-# CODE_HIER (x2)
+# lm(y~x2,data=linreg) (x2)
 
 # Was haben Sie für Koeffizeinten bekommen? Wenn wir daran denken, dass x2 = 2*x1 ist, wissen wir, dass 
 # y = x1 + x2
@@ -84,7 +84,10 @@ print(model.summary)
 # passiert, wenn wir die Reihenfolge von x1 und x2 in lm() umstellen? Führen Sie
 # die passende Regression aus:
 
-# CODE_HIER
+model2 <- lm(y~x2+x1,data=linreg)
+model2.summary <- summary(model2)
+print(model2.summary)
+# Nun steht bei x1 überall NA, weil diesmal die gesamte Varianz durch x2 erklärbar ist.
 
 # Bei linearen Regression müssen wir immer aufpassen, dass unsere Prediktoren
 # nicht zu stark miteinander korrelieren. Das könnten wir auch mit cor()
@@ -94,53 +97,66 @@ print(model.summary)
 
 # Wir laden jetzt einen weiteren Datensatz als Beispiel: 
 # (Sie müssen den folgenden Befehl evtl. anpassen!)
-pyreg <- read.table("Data/pyreg.tab",header=TRUE) 
+pyreg <- read.table("Rysop//pyreg.tab",header=TRUE)
 
 # Wie linreg hat pyreg drei Spalten x1, x2, y
 # Plotten Sie die Punkte + Regressionslinie für y ~ x1 (wie oben).
 
-# CODE_HIER
+ggplot(pyreg,aes(x=x1,y=y)) + geom_point() + geom_smooth(method="lm")
 
 # Und das gleiche für y ~ x2. 
 
-# CODE_HIER
+ggplot(pyreg,aes(x=x2,y=y)) + geom_point() + geom_smooth(method="lm")
 
 # Berechnen Sie die zwei Regressionsmodelle für y ~ x1 und y ~ x2
 
-# CODE_HIER
+lm(y~x1, data=pyreg)
 
-# CODE_HIER
+lm(y~x2, data=pyreg)
 
 # Bevor Sie die Regression y ~ x1 + x2 berechnen, schauen Sie sich die
 # Korrelation (mit Konfidenzintervall!) zwischen x1 und x2 an:
 
-# CODE_HIER
+cor.test(pyreg$x1,pyreg$x2,method="pearson")
 
 # Wenn Sie nicht miteinander signifikant korreliert sind, sollten Sie auch die
 # Regression y ~ x1 + x2 berechnen:
 
-# CODE_HIER
+model3 <- lm(y~x1+x2,data=pyreg)
+model3.summary <- summary(model3)
+print(model3.summary)
 
 # Wie gut passt das lineare Modell zu den Daten? Schauen Sie sich die R^2 und 
 # F-Werte an sowie auch die t-Werte für die einzelnen Prediktoren. Glauben Sie, 
 # dass y im linearen Verhältnis zu x1 und x2 steht? Machen Sie eine Grafik wie
 # oben für y ~ x1 + x2, **nachdem Sie sich eine Antwort überlegt haben**.
+# Da R² einen sehr hohen Wert annimmt (fast 1), bedeutet das, dass dieses Modell viel Varianz erklärt und somit ein gutes Modell ist.
+# Die t-Werte unterscheiden sich hingegen stark (5 gegen 20). Da die meiste Varianz erklärt ist, denke ich, dass y im linearen Verhältnis zu x1 und x2 steht
 
-# CODE_HIER
+ggplot(pyreg,aes(x=x1,y=x2)) + geom_point(aes(size=y))
 
 # Glauben Sie jetzt, dass y im linearen Verhältnis zu x1 und x2 steht? Warum (nicht)?
+# Die Grafik zeigt, dass y in keinem linearen Verhältnis zu x1 und x2 steht.
 
 # Wie sieht mit Korrelationen aus? Berechnen Sie die Korrelation (sowohl Pearson
 # als auch Spearman) zwischen (y und x1) sowie auch zwischen (y und x2). 
 
-# CODE_HIER
+cor(pyreg$y,pyreg$x1,method="pearson")
+# [1] 0.118832
+cor(pyreg$y,pyreg$x1,method="spearman")
+# [1] 0.07368421
 
-# CODE_HIER 
+cor(pyreg$y,pyreg$x2,method="pearson")
+# [1] 0.9439457
+cor(pyreg$y,pyreg$x2,method="spearman")
+# [1] 0.9473684
 
 # Welche Art von Korrelation macht am meisten Sinn bei diesen Daten?
+# Da wir nicht Ordinaldaten haben, können wir den Pearsontest verwenden, welcher besser ist, da er weniger Varianz erzeugt.
 
 # Korreliert y mit x1? y mit x2? x1 mit x2? Welche Schlussfolgerung über solche
 # Dreiecke von Variablen und ihren Korrelationen können Sie daraus ziehen?
+# Am stärksten korreliert y mit x2, weniger stark korreliert y  mit x1 und die beiden Variablen x1 und x2 korrelieren nicht miteinander.
 
 # Welche Methode macht hier am meisten Sinn? Korrelationen oder Regression?
 
