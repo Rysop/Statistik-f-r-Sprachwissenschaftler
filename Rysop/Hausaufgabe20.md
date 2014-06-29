@@ -61,7 +61,22 @@ Die Items in dieser Studie sind "Szenarien", also Situationen wo man mehr oder w
 
 Allerdings merken wir, dass `scenario` falsch kodiert ist, was wir korrigieren müssen:
 
-CODE_BLOCK_HIER
+```r
+stimmen$scenario <- as.factor(stimmen$scenario)
+summary(stimmen)
+```
+
+```
+##  subject gender scenario attitude   frequency    
+##  F1:14   F:42   1:12     inf:42   Min.   : 82.2  
+##  F2:14   M:42   2:12     pol:42   1st Qu.:131.6  
+##  F3:14          3:12              Median :203.9  
+##  M3:14          4:12              Mean   :193.6  
+##  M4:14          5:12              3rd Qu.:248.6  
+##  M7:14          6:12              Max.   :306.8  
+##                 7:12              NA's   :1
+```
+
 
 ## Auswirkung der experimentellen Manipulation
 Um einen groben Eindruck zu bekommen, können wir schnell einen Boxplot machen:
@@ -76,7 +91,7 @@ facet_wrap(~gender)
 ## Warning: Removed 1 rows containing non-finite values (stat_boxplot).
 ```
 
-<img src="figure/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+<img src="figure/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 
 Wir merken dabei, dass:
@@ -94,13 +109,35 @@ Wir können auf ähnliche Art und Weise ein Plot für die Versuchspersonen und S
 
 Erstellen Sie einen Boxplot für `frequency` nach `subject`, wie oben für `frequency` nach `attitude` gemacht wurde (hier ohne Aufteilung nach Geschlecht). Dieser gibt uns einen Blick in die Varianz innerhalb und zwischen Versuchspersonen. 
 
-CODE_BLOCK_HIER
+
+```r
+ggplot(stimmen) + geom_boxplot(aes(x = subject, y = frequency))
+```
+
+```
+## Warning: Removed 1 rows containing non-finite values (stat_boxplot).
+```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
+
 
 Machen Sie das gleiche für `scenario`. 
 
-CODE_BLOCK_HIER
+
+```r
+ggplot(stimmen) + geom_boxplot(aes(x = scenario, y = frequency))
+```
+
+```
+## Warning: Removed 1 rows containing non-finite values (stat_boxplot).
+```
+
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
+
 
 Gibt es mehr Varianz zwischen Szenarien oder zwischen Versuchspersonen? 
+
+Es gibt mehr Varianz zwischen Versuchspersionen als zwischen Szenarien.
 
 Die Varianz zwischen Versuchspersonen bzw. Szenarien beschreiben wir durch zufällige Effekte. Es gibt offentsichlich einen Unterschied zwischen den verschiedenen Basisfrequenzen der Einzelversuchenpersonen und es scheint auch zwischen den verschiedenen Szenarien einen Unterschied zu geben, d.h. wir haben auf jeden Fall Intercepts in unserer RE-Struktur. Ob wir auch weitere Struktur in der RE-Struktur aufnehmen, schauen wir uns erst später an.
 
@@ -193,16 +230,23 @@ summary(model.attitude)
 
 
 Haben sich die Koeffizienten oder Standardfehler geändert?
+Korrelationskoeffizient (genderM -0.651 zu -0.635)
+Standardfehler (13.48 und 17.59 zu 13.87 und 17.57)
+Koeffizienten und Standardfehler haben sich geringfügig geändert.
+
 
 Jetzt berechen wir das Modell mit der Interaktion zwischen `gender` und `attitude`. 
 
 
 ```r
-# model.attitude.int <- CODE_HIER summary(model.attitude.int)
+# model.attitude.int <- lmer(frequency~gender*attitude + (1|subject) +
+# (1|scenario), data=stimmen, REML=FALSE) summary(model.attitude.int)
 ```
 
 
 Haben sich die Koeffizienten oder Standardfehler geändert?
+Korrelationskoeffizienten (genderM -0.653) geringfügige Veränderung
+Standardfehler (14.086 und 18.392) geringfügige Veränderung
 
 Ist die Interaktion signifikant? Wir können uns den Koeffizienten anschauen, aber uns interessiert ob *das Model besser geworden ist*. Das testen wir mit `anova()`
 
@@ -213,6 +257,7 @@ Ist die Interaktion signifikant? Wir können uns den Koeffizienten anschauen, ab
 
 
 Hat die Interkation das Modell verbessert? Wenn ein komplexeres Modell nicht signifikant besser als ein einfacheres Modell ist, bleiben wir bei dem einfacheren Modell! 
+Ich glaube es hat sich nicht verbessert. Der Wert von logLik hat sich nicht sonderlich an 0 angenähert und auch der p-Wert ist nicht signifikant, so dass ich davon ausgehe, dass das einfachere Modell genauso gut ist wie das komplizierte, falls ich denn die Formel für das komplizierte überhaupt richtig geschrieben habe.
 
 # Zufällige Effekte
 
@@ -261,10 +306,16 @@ summary(model.attitude.re.slope)
 
 
 Haben sich die Koeffizienten oder Standardfehler (im Vergleich zu `model.attitude` geändert)? 
+Korrelationskoeffizient: genderM -0.647 vs -0.635; attitudepol -.0105 vs. -0.201; 0.003 vs. 0.004
+Standardfehler: Intercept: 13.529 vs 13.827 ; genderM: 17.512 vs.17.572; attitudepol: 5.922 vs.5.547
+Die Änderungen sind nicht nennenswert.
 
 Hat dieses Modell ein signifikante besseres Fit als `model.attitude`? 
 
-CODE_BLOCK_HIER
+
+anova(model.attitude.re.slope,model.attitude)
+
+Der p-wert von chi ist fast 1, also weit weg von signifikanz. Deswegen ist das fit nicht besser.
 
 Könnten wir hier ein Intercepts-Only-Modell begründen? 
 
@@ -353,7 +404,7 @@ summary(effects.attitude)
 plot(effects.attitude)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11.png) 
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14.png) 
 
 
 Was ist der Unterschied zwischen den Konfidenzintervallen von `confint()` und von `allEffects()`? (D.h., woher kommt der Unterschied?) 
@@ -434,5 +485,5 @@ Diese Sichtweise -- Regression + Korrektur pro RE-Gruppierung -- war also nicht 
 
 
 # Lizenz
-Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+Dieses Werk dient nur zu Prüfungszwecken.
 
